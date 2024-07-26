@@ -9,14 +9,14 @@
       font-size: 16px;
     }
     body{
-      background-color: #1a1a1a;
-      color: #fff;
+      background-color: #fff;
+      color: #1a1a1a;
       font-family: 'Courier New', Courier, monospace;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      margin: 0;
+      margin: 0 2rem;
       height: 100vh;
     }
     h1{
@@ -31,38 +31,62 @@
       margin: 0;
       padding: 0;
     }
+
+    code p {
+      margin: 10px 0;
+      padding: 10px;
+      background: #ddd;
+      color: #333;
+    }
     p{
       margin: 0;
       padding: 0;
+      text-align: center;
     }
+
+    @media (max-width: 768px){
+      *{
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 576px){
+      *{
+        font-size: 8px;
+      }
+    }
+
+    @media (max-width: 320px){
+      *{
+        font-size: 6px;
+      }
+    }
+
   </style>
 </head>
 <body>
   <pre>
-    <code>
-       __   __     ______     ______   ______    
-      /\ "-.\ \   /\  __ \   /\__  _\ /\  ___\   
-      \ \ \-.  \  \ \ \/\ \  \/_/\ \/ \ \  __\   
-       \ \_\\"\_\  \ \_____\    \ \_\  \ \_____\ 
-        \/_/ \/_/   \/_____/     \/_/   \/_____/ 
+        __   __     ______     ______   ______    
+       /\ "-.\ \   /\  __ \   /\__  _\ /\  ___\   
+       \ \ \-.  \  \ \ \/\ \  \/_/\ \/ \ \  __\   
+        \ \_\\"\_\  \ \_____\    \ \_\  \ \_____\ 
+         \/_/ \/_/   \/_____/     \/_/   \/_____/ 
                                                  
  ______     __  __     ______     __   __     ______     ______    
 /\  == \   /\ \/\ \   /\  == \   /\ "-.\ \   /\  ___\   /\  == \   
 \ \  __<   \ \ \_\ \  \ \  __<   \ \ \-.  \  \ \  __\   \ \  __<   
  \ \_____\  \ \_____\  \ \_\ \_\  \ \_\\"\_\  \ \_____\  \ \_\ \_\ 
   \/_____/   \/_____/   \/_/ /_/   \/_/ \/_/   \/_____/   \/_/ /_/ 
-    </code>
   </pre>
   <h1>
     API REST para notas autodestructivas en 24 horas
   </h1>
-  <pre>
-    <code>
-echo "Hola mundo" | curl -X POST --data-binary @- http://localhost:8000
-cat test | curl -X POST --data-binary @- http://localhost:8000
-alias => noteburner='curl -X POST --data-binary @- http://localhost:8000'
-</code>
-  </pre>
-  <p>NoteBurner usa ids de 16 bytes, tus datos quedan encriptados en AES-256 y seguros</p>
+  <code>
+    <p>echo "Hola mundo" | curl -X POST --data-binary @- http://localhost:8000</p>
+    <p>cat test | curl -X POST --data-binary @- http://localhost:8000</p>
+    <p>alias => noteburner='curl -X POST --data-binary @- http://localhost:8000'</p>
+  </code>
+  <p>NoteBurner usa ids de 16 bytes y encriptación AES-256 para almacenar tus datos durante 24 horas</p>
+  
 </body>
 </html>
