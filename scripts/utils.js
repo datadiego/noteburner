@@ -15,9 +15,7 @@ async function createFile(filePath, data, res) {
                 console.error(`Error al crear el archivo ${filePath}:`, err);
                 reject(err);
                 return;
-            }
-            //console.log(`Archivo creado en ${filePath}`);
-            
+            }            
             resolve(`http://localhost:8000/${path.basename(filePath)}`);
         });
     });
@@ -57,4 +55,24 @@ function scheduleFileDeletion(filePath) {
     });
 }
 
-module.exports = { createFile, scheduleFileDeletion };
+//delete all messages function
+
+async function deleteAllFiles(path){
+    fs.readdir(path, (err, files) => {
+        if (err) {
+            console.error(`Error al leer el directorio ${path}:`, err);
+            return;
+        }
+        files.forEach(file => {
+            fs.unlink(path.join('.', file), (err) => {
+                if (err) {
+                    console.error(`Error al eliminar el archivo ${file}:`, err);
+                } else {
+                    console.log(`Archivo ${file} eliminado`);
+                }
+            });
+        });
+    });
+}
+
+module.exports = { createFile, scheduleFileDeletion, deleteAllFiles };
