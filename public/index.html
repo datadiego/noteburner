@@ -2,8 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NoteBurner🔥</title>
+  <title>NoteBurner</title>
   <style>
     *{
       font-size: 13px;
@@ -16,7 +17,7 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      margin: 0;
+      margin: 0 1rem;
       padding: 0;
       height: 100vh;
       
@@ -26,8 +27,6 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      margin: 0 2rem;
-    
     }
     h1{
       margin: 0;
@@ -69,13 +68,13 @@
 
     @media (max-width: 576px){
       *{
-        font-size: 7px;
+        font-size: 10px;
       }
     }
 
     @media (max-width: 320px){
       *{
-        font-size: 6px;
+        font-size: 8px;
       }
     }
 
@@ -99,14 +98,18 @@
   <h1>
     API REST para notas autodestructivas en 24 horas
   </h1>
-  <code>
+  <code class="box">
+    <h2>Guarda mensajes</h2>
     <p>echo "quema esto en 24 horas :)" | curl -X POST --data-binary @- -H "Content-Type: text/plain" http://localhost:8000</p>
+    <h2>Guarda archivos</h2>
     <p>cat somefile.txt | curl -X POST --data-binary @- -H "Content-Type: text/plain" http://localhost:8000</p>
-    <p>alias => noteburburner="curl -X POST --data-binary @- -H 'Content-Type: text/plain' http://localhost:8000"</p>
+    <h2>Alias</h2>
+    <p>noteburburner="curl -X POST --data-binary @- -H 'Content-Type: text/plain' http://localhost:8000"</p>
   </code>
 </main>
   <footer>
-    <p>NoteBurner usa un identificador de 16 bytes para tu nota y encripta tu archivo en el servidor con un clave aleatoria en AES256.</p>
+    <p>Encriptamos todo con una clave aleatoria en AES256, <u><b>NO</b></u> podemos acceder al contenido de tus archivos</p>
+    <p><u><b>NO</b></u> hacemos backups, el archivo se borrará automaticamente a las 24 horas de su creación</p>
   </footer>
 </body>
 </html>
