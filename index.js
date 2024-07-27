@@ -7,7 +7,7 @@ const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const cron = require('node-cron');
-const { createFile, scheduleFileDeletion } = require('./scripts/utils.js');
+const { port, createFile, scheduleFileDeletion } = require('./scripts/utils.js');
 
 //░█▀▀░█▀█░█▀█░█▀▀░▀█▀░█▀▀
 //░█░░░█░█░█░█░█▀▀░░█░░█░█
@@ -59,8 +59,8 @@ app.get('/:id', (req, res) => {
     res.send(decrypted);
 });
 
-app.listen(8000, () => {
-    console.log('Server is running on http://localhost:8000');
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
 });
 
 

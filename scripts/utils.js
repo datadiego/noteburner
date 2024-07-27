@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const cron = require('node-cron');
-
+const port = 6000;
 /**
  * Crea un archivo con la data proporcionada y devuelve la URL del archivo al cliente
  * @param {*} filePath Ruta del archivo a crear
@@ -16,7 +16,7 @@ async function createFile(filePath, data, res) {
                 reject(err);
                 return;
             }            
-            resolve(`http://localhost:8000/${path.basename(filePath)}`);
+            resolve(`http://localhost:${port}/${path.basename(filePath)}`);
         });
     });
 }
@@ -75,4 +75,4 @@ async function deleteAllFiles(path){
     });
 }
 
-module.exports = { createFile, scheduleFileDeletion, deleteAllFiles };
+module.exports = { port, createFile, scheduleFileDeletion, deleteAllFiles };
