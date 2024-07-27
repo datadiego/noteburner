@@ -19,7 +19,11 @@ describe('GET /', () => {
   it('responds with html', (done) => {
     chai.request(server)
       .get('/')
-      .expect('Content-Type', /html/)
-      .expect(200, done);
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res).to.have.status(200);
+        expect(res).to.have.header('Content-Type', /html/);
+        done();
+      });
   });
 });
