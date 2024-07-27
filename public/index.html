@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NoteBurner</title>
+  <title>NoteBurner🔥</title>
   <style>
     *{
       font-size: 13px;
@@ -16,8 +16,18 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      margin: 0 2rem;
+      margin: 0;
+      padding: 0;
       height: 100vh;
+      
+    }
+    main{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin: 0 2rem;
+    
     }
     h1{
       margin: 0;
@@ -38,6 +48,17 @@
       padding: 10px;
       background: #222;
       color: #ddd;
+    }
+
+    footer{
+      position: fixed;
+      display: block;
+      width: 100%;
+      font-size: 0.8rem;
+      bottom: 0;
+      background: black;
+      color: white;
+      text-align: center;
     }
 
     @media (max-width: 768px){
@@ -61,6 +82,7 @@
   </style>
 </head>
 <body>
+  <main>
   <pre>
         __   __     ______     ______   ______    
        /\ "-.\ \   /\  __ \   /\__  _\ /\  ___\   
@@ -82,5 +104,9 @@
     <p>cat somefile.txt | curl -X POST --data-binary @- -H "Content-Type: text/plain" http://localhost:8000</p>
     <p>alias => noteburburner="curl -X POST --data-binary @- -H 'Content-Type: text/plain' http://localhost:8000"</p>
   </code>
+</main>
+  <footer>
+    <p>NoteBurner usa un identificador de 16 bytes para tu nota y encripta tu archivo en el servidor con un clave aleatoria en AES256.</p>
+  </footer>
 </body>
 </html>
