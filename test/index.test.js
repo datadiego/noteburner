@@ -1,15 +1,25 @@
-const request = require('supertest');
-const fs = require('fs');
-const path = require('path');
-const app = require('../index'); // Assuming the main file is named index.js
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+const app = require('../app'); // Asegúrate de que esta ruta sea correcta
+
+chai.use(chaiHttp);
+const expect = chai.expect;
 
 describe('GET /', () => {
-    it('responds with html', (done) => {
-        request(app)
-        .get('/')
-        .expect('Content-Type', /html/)
-        .expect(200, done);
-    });
-    });
+  let server;
 
+  before((done) => {
+    server = app.listen(8000, done);
+  });
 
+  after((done) => {
+    server.close(done);
+  });
+
+  it('responds with html', (done) => {
+    chai.request(server)
+      .get('/')
+      .expect('Content-Type', /html/)
+      .expect(200, done);
+  });
+});
