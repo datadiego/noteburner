@@ -108,3 +108,5 @@ function scheduleFileDeletion(filePath) {
         });
     });
 }
+
+module.exports = app;
