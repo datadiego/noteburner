@@ -3,14 +3,16 @@ const fs = require('fs');
 const path = require('path');
 const cron = require('node-cron');
 
+const AESKey = Buffer.from('0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef', 'hex');
 
 function getUserData(req) {
-    console.log(req.body)
     const id = crypto.randomBytes(16).toString('hex');
-    const data = req.body;
-    //file is on ../notas
+    const raw_data = req.body;
+    const iv = Buffer.from(id, 'hex');
+    const cipher = crypto.createCipheriv('aes-256-cbc', AESKey, iv);
+    let data = cipher.update(raw_data, 'utf8', 'hex');
+    data += cipher.final('hex');
     const filePath = path.join(__dirname, '..', 'notas', `${id}.txt`);
-    console.log(filePath, data);
     return { id, data, filePath };
 }
 
@@ -27,7 +29,6 @@ function createFile(filePath, data, res) {
 }
 
 function scheduleFileDeletion(filePath) {
-    console.log('scheduleFileDeletion');
     //cron ajusta cada cuánto tiempo se ejecutará la tarea
     //para comprobarla cada minuto se pone '0 * * * *'
     const task = cron.schedule('* * * * *', () => {
