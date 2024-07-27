@@ -11,13 +11,13 @@ jobs:
 
     steps:
     - name: Checkout code # Copia el código del repositorio
-      uses: actions/checkout@v3 
+      uses: actions/checkout@v4
 
     - name: Set up Docker Buildx 
-      uses: docker/setup-buildx-action@v2
+      uses: docker/setup-buildx-action@v3
 
     - name: Cache Docker layers 
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: /tmp/.buildx-cache
         key: ${{ runner.os }}-buildx-${{ github.sha }}
@@ -28,7 +28,7 @@ jobs:
       run: docker build . -t noteburner # Cambia el nombre
 
     - name: Push Docker image 
-      run: docker tag noteburner ghcr.io/${{ github.repository }}/noteburner:latest # Cambia el nombre
+      run: docker tag noteburner ghcr.io/${{ github.repository }}/noteburner:latest # Cambia los nombres
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
