@@ -28,7 +28,7 @@ jobs:
       run: docker build . -t noteburner # Cambia el nombre
 
     - name: Push Docker image 
-      run: docker tag my-node-app ghcr.io/${{ github.repository }}/noteburner:latest # Cambia el nombre
+      run: docker tag noteburner ghcr.io/${{ github.repository }}/noteburner:latest # Cambia el nombre
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
