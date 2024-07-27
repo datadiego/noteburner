@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon -e js,html,css index.js",
-    "test": "mocha"
+    "test": "mocha --require esm"
   },
   "keywords": [],
   "author": "",
@@ -12,6 +12,7 @@
   "description": "",
   "dependencies": {
     "chai": "^5.1.1",
+    "esm": "^3.2.25",
     "express": "^4.19.2",
     "mocha": "^10.7.0",
     "node-cron": "^3.0.3",
