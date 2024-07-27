@@ -1,29 +1,21 @@
-import chai from 'chai';
-import chaiHttp from 'chai-http';
-import app from '../app'; // Asegúrate de que esta ruta sea correcta
+const { createFile, scheduleFileDeletion } = require('../scripts/utils.js');
+const fs = require('fs');
+const path = require('path');
 
-chai.use(chaiHttp);
-const expect = chai.expect;
+test('createFile debería crear un archivo correctamente', async () => {
+    const filePath = path.join(__dirname, 'tempFile.txt');
+    const content = 'Contenido de prueba';
 
-describe('GET /', () => {
-  let server;
+    // Crear el archivo
+    await createFile(filePath, content);
 
-  before((done) => {
-    server = app.listen(8000, done);
-  });
+    // Verificar que el archivo se haya creado
+    expect(fs.existsSync(filePath)).toBe(true);
 
-  after((done) => {
-    server.close(done);
-  });
+    // Verificar el contenido del archivo
+    const fileContent = fs.readFileSync(filePath, 'utf8');
+    expect(fileContent).toBe(content);
 
-  it('responds with html', (done) => {
-    chai.request(server)
-      .get('/')
-      .end((err, res) => {
-        if (err) return done(err);
-        expect(res).to.have.status(200);
-        expect(res).to.have.header('Content-Type', /html/);
-        done();
-      });
-  });
+    // Limpiar el archivo creado
+    fs.unlinkSync(filePath);
 });

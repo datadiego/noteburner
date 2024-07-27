@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon -e js,html,css index.js",
-    "test": "mocha --require esm"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
