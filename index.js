@@ -6,7 +6,7 @@ const cron = require('node-cron');
 const { getUserData, createFile, scheduleFileDeletion } = require('./scripts/notes');
 const app = express();
 
-app.use(express.text());
+app.use(express.text({limit: '1mb'}));
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
@@ -21,8 +21,14 @@ app.post('/', (req, res) => {
 
 app.get('/:id', (req, res) => {
     const id = req.params.id;
-    // Enviar el archivo con el ID solicitado
-    res.sendFile(__dirname + `/notas/${id}.txt`);
+    const path = __dirname + `/notas/${id}.txt`;
+    const IV = Buffer.from(id, 'hex');
+    const AESKey = Buffer.from('0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef', 'hex');
+    const cipher = crypto.createDecipheriv('aes-256-cbc', AESKey, IV);
+    const decrypted = cipher.update(fs.readFileSync(path, 'utf8'), 'hex', 'utf8');
+    res.send(decrypted + cipher.final('utf8'));
+
+
 });
 
 app.listen(8000, () => {
