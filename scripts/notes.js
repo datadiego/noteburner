@@ -1,38 +1,16 @@
-const express = require('express');
 const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 const cron = require('node-cron');
-const { getUserData, createFile, scheduleFileDeletion } = require('./scripts/notes');
-const app = express();
 
-app.use(express.text());
-app.use(express.static('public'));
 
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/public/index.html');
-});
-
-app.post('/', (req, res) => {
-    const { id, data, filePath } = getUserData(req);
-    createFile(filePath, data, res);
-    scheduleFileDeletion(filePath);
-});
-
-app.get('/:id', (req, res) => {
-    const id = req.params.id;
-    // Enviar el archivo con el ID solicitado
-    res.sendFile(__dirname + `/notas/${id}.txt`);
-});
-
-app.listen(8000, () => {
-    console.log('Server is running on http://localhost:8000');
-});
-/*
 function getUserData(req) {
+    console.log(req.body)
     const id = crypto.randomBytes(16).toString('hex');
-    const data = Object.entries(req.body)[0][0];
-    const filePath = path.join(__dirname, 'notas', `${id}.txt`);
+    const data = req.body;
+    //file is on ../notas
+    const filePath = path.join(__dirname, '..', 'notas', `${id}.txt`);
+    console.log(filePath, data);
     return { id, data, filePath };
 }
 
@@ -43,11 +21,15 @@ function createFile(filePath, data, res) {
             res.status(500).send('Error al escribir el archivo');
             return;
         }
+        console.log(`Archivo creado en ${filePath}`);
         res.send(`http://localhost:8000/${path.basename(filePath, '.txt')}`);
     });
 }
 
 function scheduleFileDeletion(filePath) {
+    console.log('scheduleFileDeletion');
+    //cron ajusta cada cuánto tiempo se ejecutará la tarea
+    //para comprobarla cada minuto se pone '0 * * * *'
     const task = cron.schedule('* * * * *', () => {
         fs.stat(filePath, (err, stats) => {
             if (err) {
@@ -55,8 +37,9 @@ function scheduleFileDeletion(filePath) {
                 return;
             }
             const now = new Date().getTime();
-            const endTime = new Date(stats.ctime).getTime() + 60000; // 1 minuto en milisegundos
-
+            const endTime = new Date(stats.ctime).getTime() + 60000; // 1 minuto
+            //const endTime = new Date(stats.ctime).getTime() + 86400000; //24 horas
+            //const endTime = new Date(stats.ctime).getTime() + 3600000; //1 hora
             if (now > endTime) {
                 fs.unlink(filePath, (err) => {
                     if (err) {
@@ -70,4 +53,5 @@ function scheduleFileDeletion(filePath) {
         });
     });
 }
-*/
+
+module.exports = { getUserData, createFile, scheduleFileDeletion };

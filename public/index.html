@@ -6,10 +6,10 @@
   <title>NoteBurner</title>
   <style>
     *{
-      font-size: 16px;
+      font-size: 13px;
     }
     body{
-      background-color: #fff;
+      background-color: #eee;
       color: #1a1a1a;
       font-family: 'Courier New', Courier, monospace;
       display: flex;
@@ -22,6 +22,7 @@
     h1{
       margin: 0;
       padding: 0;
+      font-size: 1.5rem;
     }
     pre, code{
       margin: 0;
@@ -35,24 +36,19 @@
     code p {
       margin: 10px 0;
       padding: 10px;
-      background: #ddd;
-      color: #333;
-    }
-    p{
-      margin: 0;
-      padding: 0;
-      text-align: center;
+      background: #222;
+      color: #ddd;
     }
 
     @media (max-width: 768px){
       *{
-        font-size: 14px;
+        font-size: 12px;
       }
     }
 
     @media (max-width: 576px){
       *{
-        font-size: 8px;
+        font-size: 7px;
       }
     }
 
@@ -82,11 +78,9 @@
     API REST para notas autodestructivas en 24 horas
   </h1>
   <code>
-    <p>echo "Hola mundo" | curl -X POST --data-binary @- http://localhost:8000</p>
-    <p>cat test | curl -X POST --data-binary @- http://localhost:8000</p>
-    <p>alias => noteburner='curl -X POST --data-binary @- http://localhost:8000'</p>
+    <p>echo "quema esto en 24 horas :)" | curl -X POST --data-binary @- -H "Content-Type: text/plain" http://localhost:8000</p>
+    <p>cat somefile.txt | curl -X POST --data-binary @- -H "Content-Type: text/plain" http://localhost:8000</p>
+    <p>alias => noteburburner="curl -X POST --data-binary @- -H 'Content-Type: text/plain' http://localhost:8000"</p>
   </code>
-  <p>NoteBurner usa ids de 16 bytes y encriptación AES-256 para almacenar tus datos durante 24 horas</p>
-  
 </body>
 </html>
