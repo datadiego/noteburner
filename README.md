@@ -1,3 +1,5 @@
+# Noteburner
+
 API REST de almacenamiento volátil de información
 
 Endpoints:
@@ -14,8 +16,8 @@ Usamos AES256 para encriptar los mensajes en el servidor usando el ID como IV.
 
 Uso:
 
-
 Guarda mensajes
+
 ```bash
 echo "quema esto en 24 horas :)" | curl -X POST --data-binary @- -H "Content-Type: text/plain" http://localhost:8000
 ```
