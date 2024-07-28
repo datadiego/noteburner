@@ -25,7 +25,7 @@ deleteAllFiles(path.join(__dirname, 'notas'));
 //░▀▀▀░▀░▀░▀▀░░▀░░░▀▀▀░▀▀▀░▀░▀░░▀░░▀▀▀
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'simple.html'));
 });
 
 app.post('/', async (req, res) => {
