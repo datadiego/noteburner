@@ -16,11 +16,18 @@ Uso:
 
 
 Guarda mensajes
-
+```bash
 echo "quema esto en 24 horas :)" | curl -X POST --data-binary @- -H "Content-Type: text/plain" http://localhost:8000
+```
+
 Guarda archivos
 
+```bash
 cat somefile.txt | curl -X POST --data-binary @- -H "Content-Type: text/plain" http://localhost:8000
+```
+
 Alias
 
+```bash
 noteburburner="curl -X POST --data-binary @- -H 'Content-Type: text/plain' http://localhost:8000"
+```
