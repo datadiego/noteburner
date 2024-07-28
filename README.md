@@ -2,9 +2,9 @@ API REST de almacenamiento volátil de información
 
 Endpoints:
 
-`GET /`: Página principal
-`POST /`: Enviar texto
-`GET /:id`: Devuelve el texto almacenado
+- `GET /`: Página principal
+- `POST /`: Enviar texto
+- `GET /:id`: Devuelve el texto almacenado
 
 Utilizamos una clave de 16 bytes para el id de cada mensaje.
 
