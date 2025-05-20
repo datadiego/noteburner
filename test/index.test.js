@@ -27,7 +27,7 @@ test('createFile debería crear un archivo correctamente', async () => {
   fs.unlinkSync(filePath)
 })
 
-test('encrypt y decrypt deberían encriptar y desencriptar correctamente', () => {
+test('Encriptar y desencriptar string básico', () => {
   const data = 'Hola, mundo'
   const id = crypto.randomBytes(16).toString('hex')
   const key = crypto.randomBytes(32)
@@ -36,7 +36,7 @@ test('encrypt y decrypt deberían encriptar y desencriptar correctamente', () =>
   expect(decrypted).toBe(data)
 })
 
-test('encrypt y decrypt deberían encriptar y desencriptar correctamente', () => {
+test('Encriptar y desencriptar strings con caracteres especiales', () => {
   const data = 'Un texto con caracteres más extraños!'
   const id = crypto.randomBytes(16).toString('hex')
   const key = crypto.randomBytes(32)
@@ -45,7 +45,7 @@ test('encrypt y decrypt deberían encriptar y desencriptar correctamente', () =>
   expect(decrypted).toBe(data)
 })
 
-test('encrypt y decrypt deberían encriptar y desencriptar mensajes largos correctamente', () => {
+test('Encriptar y desencriptar cadenas muy largas', () => {
   const data = 'A'.repeat(1024 ^ 4)
   const id = crypto.randomBytes(16).toString('hex')
   const key = crypto.randomBytes(32)
@@ -54,7 +54,16 @@ test('encrypt y decrypt deberían encriptar y desencriptar mensajes largos corre
   expect(decrypted).toBe(data)
 })
 
-test('encrypt y decrypt deberían encriptar y desencriptar archivos sin romper sus caracteres', () => {
+test('Encriptar y desencriptar cadenas excesivamente largas', () => {
+  const data = 'A'.repeat(1024 ^ 8)
+  const id = crypto.randomBytes(16).toString('hex')
+  const key = crypto.randomBytes(32)
+  const encrypted = encrypt(data, id, key)
+  const decrypted = decrypt(encrypted, id, key)
+  expect(decrypted).toBe(data)
+})
+
+test('Encriptar y desencriptar archivos de prueba', () => {
   const data = fs.readFileSync(path.join(__dirname, '../scripts/utils.js'), 'utf8')
   const id = crypto.randomBytes(16).toString('hex')
   const key = crypto.randomBytes(32)
