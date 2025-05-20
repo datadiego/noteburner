@@ -1,5 +1,5 @@
 # Usa una imagen base de Node.js
-FROM node:18
+FROM node:22-slim
 
 # Establece el directorio de trabajo
 WORKDIR /app
@@ -11,7 +11,12 @@ COPY package*.json ./
 RUN npm install
 
 # Copia el resto de los archivos del proyecto
-COPY . .
+COPY ./public /public
+COPY ./scripts/*.js /scripts/
+COPY ./config.js /config.js
+COPY ./index.js /index.js
+COPY ./package.json /package.json
+COPY ./package-lock.json /package-lock.json
 
 # Expone el puerto en el que la app va a correr
 EXPOSE 8000

@@ -2,11 +2,11 @@ import fs from 'fs'
 import crypto from 'crypto'
 import path from 'path'
 import cron from 'node-cron'
-import { fileURLToPath } from 'url'
-export const port = 8000
+// import { fileURLToPath } from 'url'
+import { cronSchedule, deletionTime, port } from '../config.js'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+// const __filename = fileURLToPath(import.meta.url)
+// const __dirname = path.dirname(__filename)
 /**
  * Crea un archivo con la data proporcionada y devuelve la URL del archivo al cliente
  * @param {*} filePath Ruta del archivo a crear
@@ -32,11 +32,7 @@ export async function createFile (filePath, data, res) {
  * @param {*} filePath Ruta del archivo a eliminar
  */
 export function scheduleFileDeletion (filePath) {
-  // cada 5 minutos */5 * * * *
-  // cada minuto * * * * *
-  // cada hora   0 * * * *
-  // cada dia    0 0 * * *
-  const task = cron.schedule('0 0 * * *', () => {
+  const task = cron.schedule(cronSchedule, () => {
     fs.stat(filePath, (err, stats) => {
       console.log(`Verificando si el archivo ${filePath} debe ser eliminado`)
       if (err) {
@@ -45,16 +41,14 @@ export function scheduleFileDeletion (filePath) {
       }
       const now = new Date().getTime()
       const createTime = new Date(stats.ctime).getTime()
-      // 60000 = 1 minuto
-      // 3600000 = 1 hora
-      // 86400000 = 24 horas
-      const endTime = createTime + 60000
+
+      const endTime = createTime + deletionTime
       if (now > endTime) {
         fs.unlink(filePath, (err) => {
           if (err) {
             console.error(`Error al eliminar el archivo ${filePath}:`, err)
           } else {
-            console.log(`Archivo ${filePath} eliminado después de 1 minuto`)
+            console.log(`Archivo ${filePath} eliminado después de ${cronSchedule}`)
           }
         })
         task.stop() // Detener la tarea cron después de eliminar el archivo
@@ -98,7 +92,8 @@ export function decrypt (data, id, key) {
 }
 
 export function createNoteDir () {
-  const dirPath = path.join(__dirname, 'notas')
+  // Cambia __dirname por process.cwd() para que sea relativo a la raíz del proyecto
+  const dirPath = path.join(process.cwd(), 'notas')
   if (!fs.existsSync(dirPath)) {
     fs.mkdirSync(dirPath)
   }

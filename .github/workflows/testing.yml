@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '22' # Asegúrate de usar la versión correcta de Node.js
+          node-version: '22' 
 
       - name: Install dependencies
         run: npm install

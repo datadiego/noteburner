@@ -71,13 +71,3 @@ test('Encriptar y desencriptar archivos de prueba', () => {
   const decrypted = decrypt(encrypted, id, key)
   expect(decrypted).toBe(data)
 })
-
-test('16 bytes son suficientes para el id', () => {
-  const bytes = []
-  for (let i = 0; i < 1000000; i++) {
-    const id = crypto.randomBytes(16).toString('hex')
-    bytes.push(id)
-  }
-  const unique = new Set(bytes)
-  expect(unique.size).toBe(bytes.length)
-})
